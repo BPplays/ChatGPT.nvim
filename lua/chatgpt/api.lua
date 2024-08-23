@@ -225,6 +225,7 @@ end
 
 local function loadConfigFromnopt(envName, configName, callback, opt)
   local variable = opt
+  print(opt)
   if not variable then
     return
   end
