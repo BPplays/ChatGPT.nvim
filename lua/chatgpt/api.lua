@@ -318,7 +318,7 @@ local function ensureUrlProtocol(str)
 end
 
 function Api.setup()
-  loadOptionalConfig("OPENAI_API_HOST", "OPENAI_API_HOST", "api_host_cmd", function(host)
+  loadOptionalConfig("OPENAI_API_HOST", "OPENAI_API_HOST", "api_host", function(host)
     Api.OPENAI_API_HOST = host
     Api.COMPLETIONS_URL = ensureUrlProtocol(Api.OPENAI_API_HOST .. "/v1/completions")
     Api.CHAT_COMPLETIONS_URL = ensureUrlProtocol(Api.OPENAI_API_HOST .. "/v1/chat/completions")
