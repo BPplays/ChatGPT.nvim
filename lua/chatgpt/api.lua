@@ -222,6 +222,19 @@ local function loadConfigFromCommand(command, optionName, callback, defaultValue
     :start()
 end
 
+
+local function loadConfigFromnopt(envName, configName, callback, opt)
+  local variable = opt
+  if not variable then
+    return
+  end
+  local value = variable:gsub("%s+$", "")
+  Api[configName] = value
+  if callback then
+    callback(value)
+  end
+end
+
 local function loadConfigFromEnv(envName, configName, callback)
   local variable = os.getenv(envName)
   if not variable then
@@ -238,6 +251,8 @@ local function loadOptionalConfig(envName, configName, optionName, callback, def
   loadConfigFromEnv(envName, configName)
   if Api[configName] then
     callback(Api[configName])
+  elseif optionName == "api_host" then
+    loadConfigFromnopt(envName, configName, callback, optionName)
   elseif Config.options[optionName] ~= nil and Config.options[optionName] ~= "" then
     loadConfigFromCommand(Config.options[optionName], optionName, callback, defaultValue)
   else
